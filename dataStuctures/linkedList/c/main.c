@@ -27,9 +27,11 @@ struct linkedList {
 // Operations are applied to linkedList struct
 
 // Initiate, malloc linkeList
-// TODO This should just me a macro
 struct linkedList* init() {
-	return malloc(sizeof(struct linkedList));
+	struct linkedList* lst = malloc(sizeof(struct linkedList));
+	lst->head = 0;
+	lst->tail = 0;
+	return lst;
 }
 
 // Push -> adds to start of list
@@ -107,7 +109,7 @@ void append(struct linkedList* list, int value) {
 		// if empty list, do push instead.
 
 		(*newNode).value = value;
-		//(*newNode).next = (*list).head;
+		(*newNode).next = 0;
 		list->tail->next = newNode;
 		list->tail = newNode;
 	}
