@@ -1,18 +1,23 @@
-/*
- * Simple singly linked list.
+/**
+ * Singly linked list c implementation
+ *
+ * @author Vladimir Efimov
  */
 
 
 #include <stdio.h>
 #include <stdlib.h>
 
+
+/** Node and linkedList Structs **/
+
 // Node with next node pointer and value pointer.
 // Void value pointer allows flexibility to what is in our list
 // Having issues with void pointer. TODO use void instead of int
 struct node {
 	struct node* next;
-	//void* value;
-	int value;
+	void* value;
+	//int value;
 };
 
 // likedList object with head and tail.
@@ -22,11 +27,9 @@ struct linkedList {
 	struct node* tail;
 };
 
+/** Operations that are applied to linkedList struct **/
 
-
-// Operations are applied to linkedList struct
-
-// Initiate, malloc linkeList
+// Returns new linkedList Struct (memory allocated.)
 struct linkedList* init() {
 	struct linkedList* lst = malloc(sizeof(struct linkedList));
 	lst->head = 0;
@@ -35,9 +38,8 @@ struct linkedList* init() {
 }
 
 // Push -> adds to start of list
-// TODO void* instead of int
-void push(struct linkedList* list, int value) {
-	// If null poiter, fast return.
+void push(struct linkedList* list, void* value) {
+	// If null pointer, fast return.
 	if (!list) {
 		return;
 	}
@@ -58,28 +60,27 @@ void push(struct linkedList* list, int value) {
 }
 
 // Peak -> returns value of head node
-int peak(struct linkedList* list) {
+void* peak(struct linkedList* list) {
 	if (!list) {
-		return -1;
+		return 0;
 	}
 	return list->head->value;
 }
 
 // Pop -> returns value from start, removes head node.
-// if nothing to pop, returns -1
-//(TODO return null ptr when void pointer works)
-int pop(struct linkedList* list) {
+// if nothing to pop, returns 0
+void* pop(struct linkedList* list) {
 	if (!list) {
-		return -1;
+		return 0;
 	}
 
 	// If empty return -1
 	if (!(list->head)){
-		return -1;
+		return 0;
 	}
 
 	struct node* curHead = list->head;
-	int value = curHead->value;
+	void* value = curHead->value;
 
 	// Move head to nest
 	list->head = curHead->next;
@@ -93,8 +94,9 @@ int pop(struct linkedList* list) {
 
 	return value;
 }
+
 // Append -> Adds to end of list
-void append(struct linkedList* list, int value) {
+void append(struct linkedList* list, void* value) {
 	if (!list) {
 		return;
 	}
@@ -108,15 +110,15 @@ void append(struct linkedList* list, int value) {
 	if (newNode) {
 		// if empty list, do push instead.
 
-		(*newNode).value = value;
-		(*newNode).next = 0;
+		newNode->value = value;
+		newNode->next = 0;
 		list->tail->next = newNode;
 		list->tail = newNode;
 	}
 
 }
 
-// Delete -> free memory, delete's whole list
+// Delete -> free memory, deletes whole list
 void delete(struct linkedList* list) {
 	if (!list) {
 		return;
@@ -127,33 +129,17 @@ void delete(struct linkedList* list) {
 	free(list);
 }
 
-// Print -> for debugging, print out the list of int
+// Print -> for debugging/testing, print out the list of int
 void printIntList(struct linkedList* list) {
 	if (!list) {
 		return;
 	}
-	// TODO convert to using -> operator
-	struct node *head = (*list).head;
+	struct node *head = list->head;
 	// While head is not null
 	// Note: assuming value is int. Expect this to break hard otherwise.
 	while(head) {
-		printf("%d ", head->value);
+		printf("%d ", *((int*)(head->value)));
 		head = head->next;
-	}
-}
-void printPopIntList(struct linkedList* list) {
-	if (!list) {
-		return;
-	}
-	// TODO convert to using -> operator
-	// node *head = list->head;
-	// While head is not null
-	// Note: assuming value is int. Expect this to break hard otherwise.
-	int value = -1;
-	while(list->head) {
-		value = pop(list);
-		printf("%d ", value);
-
 	}
 }
 
@@ -164,17 +150,15 @@ int main(int argc, char **argv)
 	int a = 5;
 	int b = 1;
 	int c = 9;
-	push(lst, a);
-	push(lst, b);
-	push(lst, c);
-	append(lst, 88);
+	int d = 88;
+	push(lst, &a);
+	push(lst, &b);
+	push(lst, &c);
+	append(lst, &d);
 	printIntList(lst);
 	printf("\n***\n");
 	printIntList(lst);
 	delete(lst);
-	// delete frees lst,
-	//printf("\n***\n");
-	//printIntList(lst);
 	return 0;
 }
 
