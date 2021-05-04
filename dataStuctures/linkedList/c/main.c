@@ -4,32 +4,32 @@
  * @author Vladimir Efimov
  */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
-
 /** Node and linkedList Structs **/
 
-// Node with next node pointer and value pointer.
-// Void value pointer allows flexibility to what is in our list
-// Having issues with void pointer. TODO use void instead of int
+/*
+ * Node struct with next node pointer and value pointer.
+ * Void value pointer allows flexibility to what is in our list
+ */
 struct node {
 	struct node* next;
 	void* value;
-	//int value;
 };
 
-// likedList object with head and tail.
-// Apply operations to this object.
+/*
+ * LikedList object with head and tail.
+ * Apply operations/fuctions to this object.
+ */
 struct linkedList {
 	struct node* head;
 	struct node* tail;
 };
 
-/** Operations that are applied to linkedList struct **/
+/** Operations/functions that are applied to linkedList struct **/
 
-// Returns new linkedList Struct (memory allocated.)
+/* Returns new linkedList Struct (memory allocated) */
 struct linkedList* init() {
 	struct linkedList* lst = malloc(sizeof(struct linkedList));
 	lst->head = 0;
@@ -37,7 +37,7 @@ struct linkedList* init() {
 	return lst;
 }
 
-// Push -> adds to start of list
+/* Push -> adds to start of list */
 void push(struct linkedList* list, void* value) {
 	// If null pointer, fast return.
 	if (!list) {
@@ -59,7 +59,7 @@ void push(struct linkedList* list, void* value) {
 	// Done
 }
 
-// Peak -> returns value of head node
+/* Peak -> returns value of head node */
 void* peak(struct linkedList* list) {
 	if (!list) {
 		return 0;
@@ -67,8 +67,10 @@ void* peak(struct linkedList* list) {
 	return list->head->value;
 }
 
-// Pop -> returns value from start, removes head node.
-// if nothing to pop, returns 0
+/*
+ * Pop -> returns value from start, removes head node.
+ * if nothing to pop, returns 0
+ */
 void* pop(struct linkedList* list) {
 	if (!list) {
 		return 0;
@@ -95,7 +97,7 @@ void* pop(struct linkedList* list) {
 	return value;
 }
 
-// Append -> Adds to end of list
+/* Append -> Adds to end of list */
 void append(struct linkedList* list, void* value) {
 	if (!list) {
 		return;
@@ -118,7 +120,7 @@ void append(struct linkedList* list, void* value) {
 
 }
 
-// Delete -> free memory, deletes whole list
+/* Delete -> free memory, deletes whole list (frees memory) */
 void delete(struct linkedList* list) {
 	if (!list) {
 		return;
@@ -129,7 +131,7 @@ void delete(struct linkedList* list) {
 	free(list);
 }
 
-// Print -> for debugging/testing, print out the list of int
+/* Print -> for debugging/testing, print out the list of int */
 void printIntList(struct linkedList* list) {
 	if (!list) {
 		return;
