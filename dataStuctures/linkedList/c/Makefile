@@ -1,3 +1,3 @@
-linkedList: main.c
-	gcc -o linkedListTest main.c
+linkedList: linkedList.c main.c
+	gcc -g -o linkedList linkedList.c main.c
 
