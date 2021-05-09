@@ -1,8 +1,7 @@
 #ifndef STRING_BUILDER_H_
 #define STRING_BUILDER_H_
-#include <stdlib.h>
-#include "../linkedList/linkedList.h"
 
+/* A linkedList of char, but tracks length of final string */
 struct stringBuilder {
 	struct linkedList* lst;
 	// Using size_t type used for malloc.
@@ -12,8 +11,7 @@ struct stringBuilder {
 
 struct stringBuilder* initStringBuilder();
 void appendStr(struct stringBuilder* strB,
-					char* str, unsigned int strLength);
+char* str, unsigned int strLength);
 char* toString(struct stringBuilder* strB);
-
 
 #endif

@@ -49,14 +49,18 @@ void appendStr(struct stringBuilder* strB,
 	append(strB->lst, (void*)str);
 }
 
-/* Builds and returns the string, frees memory */
+/* Builds and returns the string, frees stringBuilder structs,
+ * allocates memory for string returned.
+ */
 char* toString(struct stringBuilder* strB) {
 	// Allocate size for string + 1 for terminating char
 	char* finalString = malloc(strB->totalLength + 1);
-
 	unsigned int toPtr = 0;
+
+	// Get first string to copy over.
 	char* strTocopy;
 	strTocopy = (char*)pop(strB->lst);
+
 	// While there is a string to copy.
 	while(strTocopy) {
 		unsigned int fromPtr = 0;
@@ -72,33 +76,9 @@ char* toString(struct stringBuilder* strB) {
 	}
 	// Set final letter to be null terminating character.
 	*(finalString + toPtr) = '\0';
+	// Free stringBuilder struct
 	delete(strB->lst);
 	free(strB);
+
 	return finalString;
 }
-
-int main(int argc, char **argv)
-{
-	struct stringBuilder* sb;
-	sb = initStringBuilder();
-	char* a = "Hello "; // 7
-	char* b = "World. "; // 7
-	char* c = "One day "; // 8
-	char* d = "you will be mine!"; //17
-
-	printf("%s\n", a);
-	printf("%s\n", b);
-	printf("%s\n", c);
-	printf("%s\n", d);
-
-	appendStr(sb, a, 7);
-	appendStr(sb, b, 7);
-	appendStr(sb, c, 8);
-	appendStr(sb, d, 17);
-
-	char* finalString = toString(sb);
-	printf("%s\n", finalString);
-
-	return 0;
-}
-
