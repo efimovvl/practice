@@ -17,14 +17,16 @@
 #include <stdlib.h>
 #include <stdint.h> // size_t max = SIZE_MAX
 #include "../linkedList/linkedList.h"
+#include "stringBuilder.h"
 
+// Can be found in stringBuilder.h
 
-struct stringBuilder {
-	struct linkedList* lst;
-	// Using size_t type used for malloc.
-	size_t totalLength;
+//~ struct stringBuilder {
+	//~ struct linkedList* lst;
+	//~ // Using size_t type used for malloc.
+	//~ size_t totalLength;
 
-};
+//~ };
 
 struct stringBuilder* initStringBuilder() {
 	struct stringBuilder* strB = malloc(sizeof(struct stringBuilder));
@@ -82,7 +84,7 @@ int main(int argc, char **argv)
 	char* a = "Hello "; // 7
 	char* b = "World. "; // 7
 	char* c = "One day "; // 8
-	char* d = "the you will be mine!"; //21
+	char* d = "you will be mine!"; //17
 
 	printf("%s\n", a);
 	printf("%s\n", b);
@@ -92,7 +94,7 @@ int main(int argc, char **argv)
 	appendStr(sb, a, 7);
 	appendStr(sb, b, 7);
 	appendStr(sb, c, 8);
-	appendStr(sb, d, 9);
+	appendStr(sb, d, 17);
 
 	char* finalString = toString(sb);
 	printf("%s\n", finalString);
