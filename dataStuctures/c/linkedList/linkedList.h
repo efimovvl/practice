@@ -8,8 +8,8 @@
  * Void value pointer allows flexibility to what is in our list
  */
 struct node {
-        struct node* next;
-        void* value;
+	struct node* next;
+	void* value;
 };
 
 /*
@@ -17,8 +17,8 @@ struct node {
  * Apply operations/fuctions to this object.
  */
 struct linkedList {
-        struct node* head;
-        struct node* tail;
+	struct node* head;
+	struct node* tail;
 };
 
 struct linkedList* init();

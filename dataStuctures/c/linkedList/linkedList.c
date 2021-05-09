@@ -78,7 +78,7 @@ void* pop(struct linkedList* list) {
 		return 0;
 	}
 
-	// If empty return -1
+	// If empty return 0
 	if (!(list->head)){
 		return 0;
 	}
