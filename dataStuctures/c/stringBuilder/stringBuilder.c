@@ -49,14 +49,14 @@ void appendStr(struct stringBuilder* strB,
 	append(strB->lst, (void*)str);
 }
 
-/* Builds and returns the string, frees stringBuilder structs,
- * allocates memory for string returned.
+/*
+ * Builds string into char* pointer provided,
+ * frees stringBuilder struct.
+ * Expecting correct size was allocated for string to be intesterted
+ * into memory starting at toString pointer.
  */
-char* toString(struct stringBuilder* strB) {
-	// Allocate size for string + 1 for terminating char
-	char* finalString = malloc(strB->totalLength + 1);
+void toStringToPtr(struct stringBuilder* strB, char* toString) {
 	unsigned int toPtr = 0;
-
 	// Get first string to copy over.
 	char* strTocopy;
 	strTocopy = (char*)pop(strB->lst);
@@ -67,7 +67,7 @@ char* toString(struct stringBuilder* strB) {
 		char letter = *(strTocopy + fromPtr);
 		// While not a terminating character.
 		while(letter) {
-			*(finalString + toPtr) = letter; // Copy the one letter
+			*(toString + toPtr) = letter; // Copy the one letter
 			toPtr += 1; // Move to pointer
 			fromPtr += 1; // Move from pointer
 			letter = *(strTocopy + fromPtr); // get next letter
@@ -75,10 +75,18 @@ char* toString(struct stringBuilder* strB) {
 		strTocopy = (char*)pop(strB->lst);
 	}
 	// Set final letter to be null terminating character.
-	*(finalString + toPtr) = '\0';
+	*(toString + toPtr) = '\0';
 	// Free stringBuilder struct
 	delete(strB->lst);
 	free(strB);
+}
 
+/* Builds and returns the string, frees stringBuilder struct,
+ * allocates memory for string returned.
+ */
+char* toString(struct stringBuilder* strB) {
+	// Allocate size for string + 1 for terminating char
+	char* finalString = malloc(strB->totalLength + 1);
+	toStringToPtr(strB, finalString);
 	return finalString;
 }
