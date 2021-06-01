@@ -13,5 +13,6 @@ struct stringBuilder* initStringBuilder();
 void appendStr(struct stringBuilder* strB,
 char* str, unsigned int strLength);
 char* toString(struct stringBuilder* strB);
+void toStringToPtr(struct stringBuilder* strB, char* toString);
 
 #endif
